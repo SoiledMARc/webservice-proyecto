@@ -30,19 +30,20 @@ public class TelaDaoImpl implements TelaDao{
 
     @Override
     public Tela findTelaByNombre(Tela tela) {
-        Query query = em.createNamedQuery("from Tela t where t.nombreTela =: nombreTela");
-        query.setParameter("nombreTela", tela.getNombreTela());
+        Query query = em.createNamedQuery("Tela.findByNombre");
+        query.setParameter("nombre", tela.getNombreTela());
         return (Tela) query.getSingleResult();
     }
 
     @Override
     public void insertTela(Tela tela) {
+        System.out.println("persist: " + tela.getNombreTela());
         em.persist(tela);
     }
 
     @Override
-    public void updateTela(Tela tela) {
-        em.merge(tela);
+    public void updateTela(Tela telaModificada) {
+       em.merge(telaModificada);
     }
 
     @Override

@@ -23,20 +23,23 @@ public class Avios implements Serializable{
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idavios")
+    @Column(name = "id")
     private Integer idAvios;
     
-    @Column(name = "tipo_avio")
+    @Column(name = "tipo")
     private String tipoAvio;
     
-    @Column(name = "nombre_avio")
+    @Column(name = "nombre")
     private String nombreAvio;
     
-    @Column(name = "cantidad_avio")
+    @Column(name = "cantidad")
     private Integer cantidadAvio;
     
-    @Column(name = "costo_avio")
-    private Integer costoAvio;
+    @Column(name = "costo")
+    private Double costoAvio;
+    
+    @Column(name = "costo_unitario")
+    private Double costoUnitario;
 
     public Avios() {
     }
@@ -49,19 +52,13 @@ public class Avios implements Serializable{
         this.tipoAvio = tipoAvio;
     }
 
-    public Avios(Integer idAvios, String tipoAvio, String nombreAvio, Integer cantidadAvio, Integer costoAvio) {
+    public Avios(Integer idAvios, String tipoAvio, String nombreAvio, Integer cantidadAvio, Double costoAvio, Double costoUnitario) {
         this.idAvios = idAvios;
         this.tipoAvio = tipoAvio;
         this.nombreAvio = nombreAvio;
         this.cantidadAvio = cantidadAvio;
         this.costoAvio = costoAvio;
-    }
-
-    public Avios(String tipoAvio, String nombreAvio, Integer cantidadAvio, Integer costoAvio) {
-        this.tipoAvio = tipoAvio;
-        this.nombreAvio = nombreAvio;
-        this.cantidadAvio = cantidadAvio;
-        this.costoAvio = costoAvio;
+        this.costoUnitario = costoUnitario;
     }
 
     public Integer getIdAvios() {
@@ -96,18 +93,26 @@ public class Avios implements Serializable{
         this.cantidadAvio = cantidadAvio;
     }
 
-    public Integer getCostoAvio() {
+    public Double getCostoAvio() {
         return costoAvio;
     }
 
-    public void setCostoAvio(Integer costoAvio) {
+    public void setCostoAvio(Double costoAvio) {
         this.costoAvio = costoAvio;
     }
-    
+
+    public Double getCostoUnitario() {
+        return costoUnitario;
+    }
+
+    public void setCostoUnitario(Double costoUnitario) {
+        this.costoUnitario = costoUnitario;
+    }
+
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 59 * hash + Objects.hashCode(this.idAvios);
+        int hash = 3;
+        hash = 47 * hash + Objects.hashCode(this.idAvios);
         return hash;
     }
 
@@ -131,10 +136,7 @@ public class Avios implements Serializable{
 
     @Override
     public String toString() {
-        return "Avios{" + "idAvios=" + idAvios + ", tipoAvio=" + tipoAvio + ", nombreAvio=" + nombreAvio + ", cantidadAvio=" + cantidadAvio + ", costoAvio=" + costoAvio + '}';
+        return "Avios{" + "idAvios=" + idAvios + ", tipoAvio=" + tipoAvio + ", nombreAvio=" + nombreAvio + ", cantidadAvio=" + cantidadAvio + ", costoAvio=" + costoAvio + ", costoUnitario=" + costoUnitario + '}';
     }
-    
-    
-    
     
 }

@@ -14,7 +14,8 @@ import javax.xml.bind.annotation.*;
     @NamedQuery(name = "Tela.findByNombre", query = "SELECT t FROM Tela t WHERE t.nombreTela = :nombreTela"),
     @NamedQuery(name = "Tela.findByColor" , query = "SELECT t FROM Tela t WHERE t.colorTela = :colorTela"),
     @NamedQuery(name = "Tela.findByMetros", query = "SELECT t FROM Tela t WHERE t.metros = :metros"),
-    @NamedQuery(name = "Tela.findByCosto", query = "SELECT t FROM Tela t WHERE t.costo = :costo")})
+    @NamedQuery(name = "Tela.findByCosto", query = "SELECT t FROM Tela t WHERE t.costo = :costo"),
+    @NamedQuery(name = "Tela.findByCostoPorMetro", query = "SELECT t FROM Tela t WHERE t.costoMetro = :costoMetro")})
 @XmlRootElement
 @XmlAccessorType(XmlAccessType.FIELD)
 public class Tela implements Serializable{
@@ -22,7 +23,7 @@ public class Tela implements Serializable{
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "idtela")
+    @Column(name = "id")
     private Integer idTela;
     
     @Column(name = "tipo")
@@ -38,7 +39,16 @@ public class Tela implements Serializable{
     private Integer metros;
     
     @Column(name = "costo")
-    private Integer costo;
+    private Double costo;
+    
+    @Column(name = "costo_por_metro")
+    private Double costoMetro;
+    
+    @Column(name = "largo")
+    private Integer largo;
+    
+    @Column(name = "ancho")
+    private Integer ancho;
 
     public Tela() {
     }
@@ -47,23 +57,35 @@ public class Tela implements Serializable{
         this.idTela = idTela;
     }
 
-    public Tela(Integer idTela, String tipoTela, String nombreTela, String colorTela, Integer metros, Integer costo) {
+    public Tela(String nombreTela) {
+        this.nombreTela = nombreTela;
+    }
+    
+    public Tela(Integer idTela, String tipoTela, String nombreTela, String colorTela, Integer metros, Double costo, Double costoMetro, Integer largo, Integer ancho) {
         this.idTela = idTela;
         this.tipoTela = tipoTela;
         this.nombreTela = nombreTela;
         this.colorTela = colorTela;
         this.metros = metros;
         this.costo = costo;
+        this.costoMetro = costoMetro;
+        this.largo = largo;
+        this.ancho = ancho;
     }
 
-    public Tela(String tipoTela, String nombreTela, String colorTela, Integer metros, Integer costo) {
+    public Tela(String tipoTela, String nombreTela, String colorTela, Integer metros, Double costo, Double costoMetro, Integer largo, Integer ancho) {
         this.tipoTela = tipoTela;
         this.nombreTela = nombreTela;
         this.colorTela = colorTela;
         this.metros = metros;
         this.costo = costo;
-    }    
+        this.costoMetro = costoMetro;
+        this.largo = largo;
+        this.ancho = ancho;
+    }
     
+    
+
     public Integer getIdTela() {
         return idTela;
     }
@@ -87,10 +109,6 @@ public class Tela implements Serializable{
     public void setNombreTela(String nombreTela) {
         this.nombreTela = nombreTela;
     }
-    
-    public Integer getMetros() {
-        return metros;
-    }
 
     public String getColorTela() {
         return colorTela;
@@ -100,22 +118,50 @@ public class Tela implements Serializable{
         this.colorTela = colorTela;
     }
 
+    public Integer getMetros() {
+        return metros;
+    }
+
     public void setMetros(Integer metros) {
         this.metros = metros;
     }
 
-    public Integer getCosto() {
+    public Double getCosto() {
         return costo;
     }
 
-    public void setCosto(Integer costo) {
+    public void setCosto(Double costo) {
         this.costo = costo;
+    }
+
+    public Double getCostoMetro() {
+        return costoMetro;
+    }
+
+    public void setCostoMetro(Double costoMetro) {
+        this.costoMetro = costoMetro;
+    }
+
+    public Integer getLargo() {
+        return largo;
+    }
+
+    public void setLargo(Integer largo) {
+        this.largo = largo;
+    }
+
+    public Integer getAncho() {
+        return ancho;
+    }
+
+    public void setAncho(Integer ancho) {
+        this.ancho = ancho;
     }
 
     @Override
     public int hashCode() {
-        int hash = 5;
-        hash = 59 * hash + Objects.hashCode(this.idTela);
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.idTela);
         return hash;
     }
 
@@ -139,7 +185,8 @@ public class Tela implements Serializable{
 
     @Override
     public String toString() {
-        return "Tela{" + "idTela=" + idTela + ", tipoTela=" + tipoTela + ", nombreTela=" + nombreTela + ", colorTela=" + colorTela + ", metros=" + metros + ", costo=" + costo + '}';
+        return "Tela{" + "idTela=" + idTela + ", tipoTela=" + tipoTela + ", nombreTela=" + nombreTela + ", colorTela=" + colorTela + ", metros=" + metros + ", costo=" + costo + ", costoMetro=" + costoMetro + ", largo=" + largo + ", ancho=" + ancho + '}';
     }
+    
     
 }

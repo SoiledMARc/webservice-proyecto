@@ -12,7 +12,7 @@ import fabrica.prendas.domain.Tela;
 import fabrica.prendas.eis.TelaDao;
 
 @Stateless
-@WebService(endpointInterface = "fabrica.prendas.servicio.TekaServiceWs")
+@WebService(endpointInterface = "fabrica.prendas.servicio.TelaServiceWs")
 @DeclareRoles({ "ROLE_ADMIN", "ROLE_USER" })
 @RolesAllowed({ "ROLE_ADMIN", "ROLE_USER" })
 public class TelaServiceImpl implements TelaService, TelaServiceWs{
@@ -45,12 +45,18 @@ public class TelaServiceImpl implements TelaService, TelaServiceWs{
 
     @Override
     public void agregarTela(Tela tela) {
+        System.out.println("dao: " + tela.getNombreTela());
         telaDao.insertTela(tela);
     }
 
     @Override
     public void modificar(Tela tela) {
-        telaDao.updateTela(tela);
+        try{
+            telaDao.updateTela(tela);
+        }catch(Throwable t){
+            contexto.setRollbackOnly();
+            t.printStackTrace(System.out);
+        }
     }
 
     @Override

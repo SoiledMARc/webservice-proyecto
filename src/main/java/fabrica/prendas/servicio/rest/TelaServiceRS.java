@@ -34,9 +34,7 @@ public class TelaServiceRS {
     @Produces(value={MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("/findN/{nombre}")
     public Tela encontrarTelaPorNombre(@PathParam("nombre") String nombre){
-        Tela aux = new Tela();
-        aux.setNombreTela(nombre);
-        return telaService.encontrarPorNombre(aux);
+        return telaService.encontrarPorNombre(new Tela(nombre));
     }
     
     @GET
@@ -66,17 +64,16 @@ public class TelaServiceRS {
     @Produces(value={MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Consumes(value={MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     @Path("/update/{id}")
-    public Response modificarTelaPorId(Tela telaModificada,@PathParam("id")int id){
+    public Response modificarTelaPorId(@PathParam("id")int id, Tela telaModificada){
         try{
             Tela tela = telaService.encontrarTelaPorId(new Tela(id));
             if (tela != null) {
-                telaService.modificar(tela);
+                telaService.modificar(telaModificada);
                 return Response.ok().entity(telaModificada).build();
             } else {
                 return Response.status(Status.NOT_FOUND).build();
             }
         }catch(Exception e){
-            System.out.println("Error:" + e.getMessage());
             return Response.status(Status.INTERNAL_SERVER_ERROR).build();
         }
     }
